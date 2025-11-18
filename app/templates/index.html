@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OndasContinuas</title>
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"> -->
+
+        <link id="theme-link" rel="stylesheet" href="">
+        <link rel="stylesheet" href="/lib/extra/codemirror/codemirror.min.css">
+        <link rel="stylesheet" href="/lib/css/style.css">
+    </head>
+    <body>
+        <textarea id="code-editor"></textarea>
+        <div id="status-bar">
+            <span id="status-message"></span>
+            <select id="theme-selector"></select>
+        </div>
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script> -->
+
+        <script>var initialScript = "{{ initialscript }}";</script>
+
+        <script src="/lib/extra/codemirror/codemirror.min.js"></script>
+        <script src="/lib/extra/codemirror/codemirror-javascript.min.js"></script>
+        <script src="/lib/js/modulation.js"></script>
+        <script src="/lib/js/wavex.js"></script>
+        <script src="/lib/js/fade.js"></script>
+        <script src="/lib/js/sound.js"></script>
+        <script src="/lib/js/main.js"></script>
+    </body>
+</html>
