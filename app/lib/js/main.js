@@ -180,6 +180,19 @@ window.onload = async () => {
         });
     }
 
+    async function listFiles(cb=console.log) {
+        try {
+            const response = await fetch(`/files`);
+            const result = await response.json();
+            if (result.status === 'success') {
+                cb(result.files);
+            } else {
+                setStatus(result.message, true);
+            }
+        } catch (e) {
+            setStatus(`Error al cargar: ${e.message}`, true);
+        }
+    }
 
 
     function insertText(data, move_to_end = false) {
@@ -226,6 +239,7 @@ window.onload = async () => {
     window.importCode = importCode;
     window.loadJs = loadScriptJavascript;
     window.insTxt = insertText;
+    window.ls = listFiles;
 
     importCode(initialScript);
 };

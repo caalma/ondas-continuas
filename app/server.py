@@ -88,6 +88,37 @@ def load_script(filename):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+
+# API para listar todos los archivos disponibles en la carpeta de scripts
+@app.route('/files')
+def list_files():
+    try:
+        # Solo mostramos archivos con extensión .js (puedes cambiarlo si quieres otros)
+        archivos = [
+            f for f in os.listdir(SCRIPTS_DIR)
+            if os.path.isfile(os.path.join(SCRIPTS_DIR, f)) and f.lower().endswith('.js')
+        ]
+
+        # Opcional: ordenar alfabéticamente
+        archivos.sort(key=str.lower)
+
+        return jsonify({
+            'status': 'success',
+            'files': archivos,
+        })
+
+    except FileNotFoundError:
+        return jsonify({
+            'status': 'error',
+            'message': f'Carpeta {SCRIPTS_DIR} no encontrada'
+        }), 500
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     print(f"Servidor Flask iniciado en http://{HOST}:{PORT}")
     print(f"Sirviendo archivos desde: {os.path.dirname(os.path.abspath(__file__))}")
