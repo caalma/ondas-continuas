@@ -166,9 +166,66 @@ window.onload = async () => {
         }
     }
 
+    async function loadScriptJavascript (url = "") {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.async = true;
+            script.onload = () => {
+                console.log(`Cargado el script: ${url}`)
+                resolve(script)
+            };
+            script.onerror = () => reject(new Error(`Error al cargar el script: ${url}`));
+            script.src = url;
+            document.head.appendChild(script);
+        });
+    }
+
+
+
+    function insertText(data, move_to_end = false) {
+        if (!editor) return;
+
+        let text;
+        if (data === null) {
+            text = 'null';
+        } else if (data === undefined) {
+            text = 'undefined';
+        } else if (typeof data === 'object') {
+            try {
+                // Intentar serializar como JSON con sangría para legibilidad
+                text = JSON.stringify(data, null, 2);
+            } catch (e) {
+                // Si contiene circular references u otros problemas, usar fallback
+                text = '[objeto no serializable: ' + (e.message || typeof data) + ']';
+            }
+        } else {
+            // Para strings, numbers, booleans, etc.
+            text = String(data);
+        }
+
+        const cursor = editor.getCursor();
+        editor.replaceRange(text, cursor);
+
+        if (move_to_end) {
+            // Calcular nueva posición del cursor (solo si es una sola línea)
+            const lines = text.split('\n');
+            let newLine, newCh;
+            if (lines.length === 1) {
+                newLine = cursor.line;
+                newCh = cursor.ch + text.length;
+            } else {
+                newLine = cursor.line + lines.length - 1;
+                newCh = lines[lines.length - 1].length;
+            }
+            editor.setCursor({ line: newLine, ch: newCh });
+        }
+    }
+
     // Exponer funciones al scope global
     window.exportCode = exportCode;
     window.importCode = importCode;
+    window.loadJs = loadScriptJavascript;
+    window.insTxt = insertText;
 
     importCode(initialScript);
 };
