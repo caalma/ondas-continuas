@@ -4,7 +4,7 @@ server:
   port: 5005
 
 # Almacenamiento de scripts
-scripts_dir: './scripts/'
+scripts_dir: '../scripts/'
 script_init: 'inicial.js'
 
 # Configuración del Editor
