@@ -60,6 +60,3 @@ function freq2note(frequency, useCents = false) {
 
     return [noteName + octave, deviation];
 }
-
-
-const armonicos = (f, N) => Array.from({ length: N }, (_, i) => (i + 1) * f);
